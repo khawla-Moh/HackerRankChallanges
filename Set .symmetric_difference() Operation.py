@@ -1,0 +1,5 @@
+num_english_stu=int(input())
+english_stu=set(input().split())
+num_french_stu=int(input())
+french_stu=set(input().split())
+print(len(english_stu.symmetric_difference(french_stu)))
