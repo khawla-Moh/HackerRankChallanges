@@ -1,0 +1,39 @@
+import re
+def simplify(poly):
+    
+    
+    matches = re.findall(r'([+\-]?)(\d*)([a-z]+)', poly)
+
+    expanded = [[int(i[0] + (i[1] if i[1] != "" else "1")), ''.join(sorted(i[2]))] for i in matches]
+
+    variables = sorted(list(set(i[1] for i in expanded)), key=lambda x: (len(x), x))
+
+    coefficients = {v:sum(i[0] for i in expanded if i[1] == v) for v in variables}
+
+    return '+'.join(str(coefficients[v]) + v for v in variables if coefficients[v] != 0).replace('1','').replace('+-','-')
+
+""" 
+def simplify(poly): 
+        polyGroup=[re.search(r'([+-]?\d*)([a-z]+)',poly).groups() for poly in re.findall(r'([+-]?\d*\w+)',poly)]
+        sortedPolyGroup= [[int(i[0] + (i[1] if i[1] != "" else "1")), ''.join(sorted(i[2]))] for i in polyGroup]
+        variables = sorted(list(set(i[1] for i in sortedPolyGroup)), key=lambda x: (len(x), x))
+
+        coefficients = {v:sum(i[0] for i in polyGroup if i[1] == v) for v in variables}
+
+        return '+'.join(str(coefficients[v]) + v for v in variables if coefficients[v] != 0).replace('1','').replace('+-','-')
+ """     
+
+
+print(simplify('x+y-2xy+yx'))
+
+
+
+
+
+
+
+
+
+
+#Split string with multiple symbols
+# re.split(r'[\+-]',expression)
